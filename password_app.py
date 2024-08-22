@@ -129,13 +129,13 @@ user_password = Entry(width=35, bg=FIELD_COLORS, fg=FIELD_FONT_COLOR, font=FONT)
 user_password.grid(column=1, row=3, columnspan=2, padx=3, pady=3)
 
 # Button setup
-add_button = Button(text="Add", width=36, command=save, font=FONT)
-add_button.grid(column=1, row=5, columnspan=2)
+generate_button = Button(text="Generate Password", width=35, command=password_generator, font=FONT)
+generate_button.grid(column=1, row=5, columnspan=2)
 
-generate_button = Button(text="Generate Password", command=password_generator, font=FONT)
-generate_button.grid(column=3, row=3)
+add_button = Button(text="Add", width=17, font=FONT, command=save)
+add_button.grid(column=3, row=3)
 
-search_button = Button(text="Search", padx=95, font=FONT, command=find_password)
+search_button = Button(text="Search", width=17, font=FONT, command=find_password)
 search_button.grid(column=3, row=1)
 
 
