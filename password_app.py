@@ -53,22 +53,32 @@ def save():
     if len(website) == 0 or len(password) == 0:
         messagebox.showerror(title="Blank field", message="Required: Username and Password")
     else:
-        try:
-            with open("secret.json", "r") as f:
-                # Reading old data
-                data = json.load(f)
+        is_ok = messagebox.askokcancel(title=website, message=f"**Website**: **{website}**\n"
+                                                              f"\nEmail/UserName: {username}\n"
+                                                              f"\nPassword: {password}\n"
+                                                              f"\nSelect OK to save")
+        if is_ok:
+            try:
+                with open("secret.json", "r") as f:
+                    # Reading old data
+                    data = json.load(f)
 
-        except FileNotFoundError:
-            with open("secret.json", "w") as f:
-                json.dump(new_data, f, indent=4)
+            except FileNotFoundError:
+                with open("secret.json", "w") as f:
+                    json.dump(new_data, f, indent=4)
+            else:
+                data.update(new_data)
+
+                with open("secret.json", "w") as f:
+                    # Saving updated data
+                    json.dump(data, f, indent=4)
+            finally:
+                user_website.delete(0, END)
+                user_password.delete(0, END)
+
         else:
-            data.update(new_data)
-
-            with open("secret.json", "w") as f:
-                # Saving updated data
-                json.dump(data, f, indent=4)
-        finally:
             user_website.delete(0, END)
+            user_name.delete(0, END)
             user_password.delete(0, END)
 
 
