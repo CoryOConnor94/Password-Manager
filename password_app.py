@@ -53,7 +53,7 @@ def save():
     if len(website) == 0 or len(password) == 0:
         messagebox.showerror(title="Blank field", message="Required: Username and Password")
     else:
-        is_ok = messagebox.askokcancel(title=website, message=f"**Website**: **{website}**\n"
+        is_ok = messagebox.askokcancel(title=website, message=f"Website: {website}\n"
                                                               f"\nEmail/UserName: {username}\n"
                                                               f"\nPassword: {password}\n"
                                                               f"\nSelect OK to save")
