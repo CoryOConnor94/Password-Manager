@@ -132,7 +132,7 @@ user_password.grid(column=1, row=3, columnspan=2, padx=3, pady=3)
 generate_button = Button(text="Generate Password", width=35, command=password_generator, font=FONT)
 generate_button.grid(column=1, row=5, columnspan=2)
 
-add_button = Button(text="Add", width=17, font=FONT, command=save)
+add_button = Button(text="Save", width=17, font=FONT, command=save)
 add_button.grid(column=3, row=3)
 
 search_button = Button(text="Search", width=17, font=FONT, command=find_password)
