@@ -1,4 +1,6 @@
 import matplotlib.pylab as plt
+from random import randint
+
 
 ALPHABET = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 KEY = 3
@@ -61,6 +63,7 @@ def plot_distribution(frequencies):
     plt.bar(frequencies.keys(), frequencies.values())
     plt.show()
 
+
 def crack_freq_ceasar(cipher_text):
     freq = frequency_analysis(cipher_text)
     freq = sorted(freq.items(), key=lambda x: x[1], reverse=True)
@@ -101,20 +104,78 @@ def vigenere_decrypt(cipher_text, key):
     return plain_text
 
 
+def random_sequence(text):
+    random_ints = []
+
+    for _ in range(len(text)):
+        random_ints.append(randint(0, len(ALPHABET) - 1))
+
+    return random_ints
+
+
+def one_time_pad_encrypt(plain_text, key):
+    plain_text = plain_text.upper()
+    cipher_text = ''
+
+    # Loop through plaintext letters, enumerate returns item + item index
+    for index, char in enumerate(plain_text):
+        # The value a given letter is shifted
+        key_index = key[index]
+        # Given letter in plaintext index in Alphabet
+        char_index = ALPHABET.find(char)
+        # Encrypted message = chars index value + random value index, mod length of alphabet for wrap around
+        cipher_text += ALPHABET[(char_index + key_index) % len(ALPHABET)]
+
+    return cipher_text
+
+
+def one_time_pad_decrypt(cipher_text, key):
+    # cipher_text = cipher_text.upper()
+    plain_text = ''
+
+    # Loop through each character and return index and value
+    for index, char in enumerate(cipher_text):
+        # Value given letter will be shifted
+        key_index = key[index]
+        # Letters index in alphabet
+        char_index = ALPHABET.find(char)
+        # Decrypted message = char index value - key index value, mod length of alphabet for wrap around
+        plain_text += ALPHABET[(char_index - key_index) % len(ALPHABET)]
+
+    return plain_text
+
+
 # encrypted_message = cesar_encrypt("Dog two")
 # decrypted_message = cesar_decrypt(encrypted_message)
 # crack_ceasar(encrypted_message)
 
-text_to_encrypt = input("Enter text here to be encrypted: ")
-private_key = input("Enter private key: ")
+# text_to_encrypt = input("Enter text here to be encrypted: ")
+# private_key = input("Enter private key: ")
 
-encrypted_message = vigenere_encrypt(text_to_encrypt, private_key)
-print(encrypted_message)
-decrypted_message = vigenere_decrypt(encrypted_message, private_key)
-print(decrypted_message)
+# encrypted_message = cesar_encrypt("Dog two")
+# decrypted_message = cesar_decrypt(encrypted_message)
+# print(decrypted_message)
+
+# crack_ceasar(encrypted_message)
+
+# encrypted_message = vigenere_encrypt(text_to_encrypt, private_key)
+# print(encrypted_message)
+# decrypted_message = vigenere_decrypt(encrypted_message, private_key)
+# print(decrypted_message)
 
 
 #encrypted_message = cesar_encrypt(text_to_encrypt)
 #char_count = frequency_analysis(text_to_encrypt)
 #plot_distribution(char_count)
 #crack_freq_ceasar(encrypted_message)
+
+message = "This is a secret message to be encrypted using one time pad"
+print(f"This is the message to be encrypted: {message}")
+sequence = random_sequence(message)
+print(f"This is the key of random numbers used to encrypt: {sequence}")
+encrypted_message = one_time_pad_encrypt(message, sequence)
+print(f"This is the message encrypted: {encrypted_message}")
+decrypted_message = one_time_pad_decrypt(encrypted_message, sequence)
+print(f"This is the message decrypted: {decrypted_message}")
+analysed_encrypted_message = frequency_analysis(encrypted_message)
+plot_distribution(analysed_encrypted_message)
