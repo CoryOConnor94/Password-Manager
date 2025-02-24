@@ -27,14 +27,14 @@ FONT = ("Courier", 12, "normal")
 
 def password_generator():
     """Generates secure 16 character password"""
-    global LETTERS, DIGITS, SPECIAL_CHARS
     user_password.delete(0, END)
     # Generate 16 ASCII character password
-    password_list = [choice(ALPHABET) for _ in range(16)]
-    # password_list = password_letters + password_numbers + password_symbols
-    shuffle(password_list)
+    password_list = [choice(LETTERS), choice(DIGITS), choice(SPECIAL_CHARS)]    # Ensure one of each in password
+    password_list += [choice(ALPHABET) for _ in range(13)]
+    shuffle(password_list)  # Shuffle to randomize order
     password = "".join(password_list)
-    print(f"Your password is: {password}")
+    window.clipboard_clear()  # Clear the clipboard
+    print(f"Your password is: {password}\nAlso copied to your clipboard!")
     user_password.insert(0, password)
     user_password.clipboard_append(password)
 
