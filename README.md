@@ -1,5 +1,8 @@
 # Password Manager AES
 
+![image](https://github.com/user-attachments/assets/47b44555-7234-4ec7-8805-5d50603c0404)
+
+
 ## Overview
 This Password Manager is a secure application built using Python and Tkinter. It allows users to generate, encrypt, store, and retrieve passwords securely using AES-256 encryption. The passwords are stored in a JSON file after encryption, and users can retrieve them using their private key.
 
